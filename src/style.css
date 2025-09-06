@@ -1,0 +1,24 @@
+@import "tailwindcss";
+
+@font-face {
+    font-family: prise;
+    src: url('./fonts/Courgette-Regular.ttf');
+    
+}
+@font-face {
+    font-family: soft;
+    src: url('./fonts/Sofia-Regular.ttf');
+    
+}
+@font-face {
+    font-family: play;
+    src: url('./fonts/TASAExplorer-VariableFont_wght.ttf');
+    font-weight: 500;
+    
+}
+
+@theme {
+    --font-soft: 'soft', serif;
+    --font-prise: 'prise', serif;
+    --font-play: 'play', serif;
+}
