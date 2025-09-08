@@ -3,7 +3,7 @@ export const userLogin = async (username: string, password: string) => {
     form.append('username', username)
     form.append('password', password)
 
-    const response = await fetch('http://127.0.0.1:8000/login', {
+    const response = await fetch('https://strawberry-api.onrender.com/login', {
         method: 'POST',
         body: form
     })
@@ -13,7 +13,7 @@ export const userLogin = async (username: string, password: string) => {
 
 export const getUserData = async (token: string) => {
 
-    const response = await fetch('http://127.0.0.1:8000/user/me', {
+    const response = await fetch('https://strawberry-api.onrender.com/user/me', {
         method: 'GET',
         headers: {
             'Authorization': `Bearer ${token}`

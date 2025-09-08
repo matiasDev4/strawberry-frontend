@@ -1,7 +1,7 @@
 
 export const insertProduct = async (data: FormData) => {
 
-    const response = await fetch('http://127.0.0.1:8000/products/create', {
+    const response = await fetch('https://strawberry-api.onrender.com/products/create', {
         method: 'POST',
         body: data
     })
@@ -12,7 +12,7 @@ export const insertProduct = async (data: FormData) => {
 }
 
 export const getAllProducts = async () => {
-    const response = await fetch('http://127.0.0.1:8000/products', {
+    const response = await fetch('https://strawberry-api.onrender.com/products', {
         method: 'GET',
     })
 
