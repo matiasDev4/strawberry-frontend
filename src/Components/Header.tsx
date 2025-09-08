@@ -19,6 +19,7 @@ export const Header = () => {
                     {options.map((item, index) => 
                         <li key={index}
                         ><a href={item.link}
+                        onClick={()=>setOpen(!open)}
                         className='px-2 py-1 text-lg font-prise
                         text-red-400 hover:text-red-800 font-semibold block transition-colors duration-200'
                         >{item.name}</a></li>

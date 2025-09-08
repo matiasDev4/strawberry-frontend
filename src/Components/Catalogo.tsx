@@ -1,39 +1,33 @@
-import { useState } from "react"
+
+import { useEffect, useState } from "react"
 import { Card } from "./CardProduct"
-
-const prod = [{
-    'name': 'Conjunto',
-    'description': 'talle 2xl, 3xl',
-    'image': '../assets/ropa.webp',
-    'price': 2000
-},{
-    'name': 'Conjunto',
-    'description': 'talle 2xl, 3xl',
-    'image': '../assets/ropa.webp',
-    'price': 2000
-},{
-    'name': 'Conjunto',
-    'description': 'talle 2xl, 3xl',
-    'image': '../assets/ropa.webp',
-    'price': 2000
-},{
-    'name': 'Conjunto',
-    'description': 'talle 2xl, 3xl',
-    'image': '../assets/ropa.webp',
-    'price': 2000
-}]
+import { useContextProduct } from "../hooks/userContextProduct"
 
 
-
+export type productList = {
+    name: string,
+    description: string,
+    price: number,
+    image: string
+}
 
 
 export const Catalago = () => {
-    const [pagination, setPagination] = useState(0)
+    const [product, setProduct] = useState<productList[]>([])
+    const {getProducts} = useContextProduct()
+    const handlerProducts = async () => {
+        const res = await getProducts()
+        if (res) {
+            setProduct(res)
+        } 
+    }
+    useEffect(()=>{
 
-
+        handlerProducts()
+    },[])
 
     return (
-        <section className="w-full max-w-[1300px] mx-auto min-h-screen">
+        <section className="w-full max-w-[1300px] mx-auto min-h-screen scroll-mt-20 scroll-smooth" id="catalogo">
             <div className="px-2 py-2 flex justify-between">
                 <h1 className="text-3xl font-soft">Catalogo</h1>  
                 <div className="flex items-center gap-x-4">
@@ -44,13 +38,8 @@ export const Catalago = () => {
                 </div>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 place-items-center my-5 gap-5 items-start">
-                {prod.map((item, index) => 
-                    <Card key={index}/>
-                )}
-            </div>
-            <div className="flex gap-x-5 justify-center py-2">
-                {prod.map((item, index) => 
-                <h1 className="border px-4 py-2">{index}</h1>
+                {product.map((item, index) => 
+                    <Card product={item} key={index}/>
                 )}
             </div>
         </section>

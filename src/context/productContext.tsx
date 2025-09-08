@@ -1,23 +1,24 @@
 import React, { createContext } from "react";
-import type { productInterface } from "../config/productsTypes";
-import { insertProduct } from "../services/productService";
+import { getAllProducts } from "../services/productService";
+import type { productList } from "../Components/Catalogo";
 
 type contextProps = {
-    createProduct: ({products}:{products: productInterface}) => Promise<void>
+    getProducts: () => Promise<productList[]>
 }
 
 export const productContext = createContext<contextProps | undefined>(undefined)
 
-export const productProvider = ({ children }: { children: React.ReactNode }) => {
-    
-    const createProduct = async ({products}:{products: productInterface}) => {
-       await insertProduct({products})
+export const ProductProvider = ({ children }: { children: React.ReactNode }) => {
+
+    const getProducts = async (): Promise<productList[]> => {
+        const response = await getAllProducts()
+        return response
     }
 
     return (
         <productContext.Provider
             value={{
-                createProduct
+                getProducts
             }}
         >
             {children}

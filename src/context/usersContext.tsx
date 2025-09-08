@@ -3,6 +3,7 @@ import { getUserData } from "../services/authService";
 
 type contextProp = {
     getUser: () => Promise<{username: string, role: string}>
+
 }
 
 
@@ -22,6 +23,8 @@ export const ProviderUser = ({children}:{children: React.ReactNode}) => {
             throw new Error('No se encontro el rol')
         }
     }
+
+
     
     return (
         <usersContext.Provider

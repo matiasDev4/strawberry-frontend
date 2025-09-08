@@ -8,25 +8,28 @@ import { Panel } from './layouts/Panel'
 import { Products } from './routers/Products'
 import { UseProtection } from './hooks/useProtection'
 import { ProviderUser } from './context/usersContext'
+import { ProductProvider } from './context/productContext'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <BrowserRouter >
-      <Routes>
-        <Route index element={<App />} />
-        <Route path='/' element={<App />} />
-        <Route path='/login' element={<Login />} />
-        <Route path='/panel' element={
-          <ProviderUser>
-            <UseProtection>
-              <Panel />
-            </UseProtection>
-          </ProviderUser>
-        }>
-          <Route index element={<Navigate to="productos" replace />} />
-          <Route index path='productos' element={<Products />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    <ProductProvider>
+      <BrowserRouter >
+        <Routes>
+          <Route index element={<App />} />
+          <Route path='/' element={<App />} />
+          <Route path='/login' element={<Login />} />
+          <Route path='/panel' element={
+            <ProviderUser>
+              <UseProtection>
+                <Panel />
+              </UseProtection>
+            </ProviderUser>
+          }>
+            <Route index element={<Navigate to="productos" replace />} />
+            <Route index path='productos' element={<Products />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </ProductProvider>
   </StrictMode>,
 )
