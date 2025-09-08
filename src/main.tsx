@@ -15,7 +15,6 @@ createRoot(document.getElementById('root')!).render(
     <ProductProvider>
       <BrowserRouter >
         <Routes>
-          <Route index element={<App />} />
           <Route path='/' element={<App />} />
           <Route path='/login' element={<Login />} />
           <Route path='/panel' element={
@@ -26,10 +25,10 @@ createRoot(document.getElementById('root')!).render(
             </ProviderUser>
           }>
             <Route index element={<Navigate to="productos" replace />} />
-            <Route index path='productos' element={<Products />} />
+            <Route path='productos' element={<Products />} />
           </Route>
         </Routes>
       </BrowserRouter>
     </ProductProvider>
-  </StrictMode>,
+  </StrictMode>
 )
