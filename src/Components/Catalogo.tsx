@@ -35,10 +35,12 @@ export const Catalago = () => {
                 <h1 className="text-3xl font-soft">Catalogo</h1>  
                 <div className="flex items-center gap-x-4">
                     <h1 className="font-play text-lg">Filtro</h1>
-                    <select name="" id="" className="border px-2 py-1 rounded-md border-[#646464]">
+                    <select 
+                    onChange={(e)=>{setCateg(e.target.value)}}
+                    name="" id="" className="border px-2 py-1 rounded-md border-[#646464]">
                         <option value="todos">Todos</option>
                         {product.map(item => <option 
-                        onChange={(e)=>{setCateg(e.currentTarget.value)}}
+                        
                         value={item.category}>{item.category}</option>)}
                     </select>
                 </div>
