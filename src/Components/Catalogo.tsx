@@ -17,6 +17,8 @@ export type productList = {
 export const Catalago = () => {
     const [product, setProduct] = useState<productList[]>([])
     const {getProducts} = useContextProduct()
+    const [categ, setCateg] = useState('')
+
     const handlerProducts = async () => {
         const res = await getProducts()
         if (res) {
@@ -24,7 +26,6 @@ export const Catalago = () => {
         } 
     }
     useEffect(()=>{
-
         handlerProducts()
     },[])
 
@@ -36,12 +37,14 @@ export const Catalago = () => {
                     <h1 className="font-play text-lg">Filtro</h1>
                     <select name="" id="" className="border px-2 py-1 rounded-md border-[#646464]">
                         <option value="todos">Todos</option>
-                        {product.map(item => <option value="todos">{item.category}</option>)}
+                        {product.map(item => <option 
+                        onChange={(e)=>{setCateg(e.currentTarget.value)}}
+                        value={item.category}>{item.category}</option>)}
                     </select>
                 </div>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 place-items-center my-5 gap-5 items-start">
-                {product.map((item, index) => 
+                {product.filter(item => item.category === categ ? item : product).map((item, index) => 
                     <Card product={item} key={index}/>
                 )}
             </div>
