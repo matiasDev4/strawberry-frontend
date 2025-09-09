@@ -12,6 +12,7 @@ export const Products = () => {
     const [mode, setMode] = useState('create')
     const [openModal, setOpenModal] = useState(false)
     const [product, setProduct] = useState<productList[]>([])
+    const [id, setId] = useState(0)
     const { getProducts } = useContextProduct()
     const { addToast } = useToast()
 
@@ -58,6 +59,7 @@ export const Products = () => {
                                 onClick={() => {
                                     setMode('editar')
                                     setOpenModal(true)
+                                    setId(item.id as number)
                                 }}
                             >Editar</button>
                             <button className='px-2 text-red-600 rounded-sm hover:cursor-pointer'
@@ -67,7 +69,7 @@ export const Products = () => {
                     </div>
                 </article>)}
             </div>
-            {openModal && <ModalProduct openModal={openModal} setOpenModal={setOpenModal} mode={mode} />}
+            {openModal && <ModalProduct openModal={openModal} setOpenModal={setOpenModal} mode={mode} id={id}/>}
         </section>
     )
 }
