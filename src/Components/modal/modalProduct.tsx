@@ -1,16 +1,17 @@
 import React, { useEffect, useRef, useState } from "react"
-import { insertProduct } from "../../services/productService"
+import { insertProduct, updateProduct } from "../../services/productService"
 import { useToast } from "../../context/toastContext"
 
 
 type modalProps = {
+    id?: number
     openModal: boolean
     setOpenModal: React.Dispatch<React.SetStateAction<boolean>>
     mode: string
 
 }
 
-export const ModalProduct = ({ openModal, setOpenModal, mode }: modalProps) => {
+export const ModalProduct = ({ openModal, setOpenModal, mode, id}: modalProps) => {
     const [name, setName] = useState('')
     const [description, setDescription] = useState('')
     const [category, setCategory] = useState('')
@@ -18,39 +19,44 @@ export const ModalProduct = ({ openModal, setOpenModal, mode }: modalProps) => {
     const [stock, setStock] = useState('')
     const [image, setImage] = useState<File | null>(null)
     const [active, setActive] = useState(true)
+    const [changeImg, setChangeImg] = useState(false)
 
     const ref = useRef<HTMLFormElement | null>(null)
 
     const { addToast } = useToast()
     const date = new Date()
     const form = new FormData()
+
     const handlerSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        if (!image) return addToast(date.getTime(), 'Falta una imagen', 'alert')
+        if (image) {
+            form.append('image', image)
+        }
         if (name.trim() !== '' && description.trim() !== '' && category !== '' && price.trim() !== '' && stock !== '') {
             form.append('name', name)
             form.append('description', description)
             form.append('category', category)
-            form.append('image', image)
             form.append('stock', stock)
             form.append('price', price)
             form.append('active', active ? 'true' : 'false')
-            const res = await insertProduct(form)
-            const message = await res.json()
-            console.log(res)
 
-            if (res.status === 201) {
-                addToast(date.getTime(), message['success'], 'success')
-                setOpenModal(false)
+            if (mode === 'create') {
+                const res = await insertProduct(form)
+                const message = await res.json()
+                if (res.status === 201) {
+                    addToast(date.getTime(), message['success'], 'success')
+                    setOpenModal(false)
+                } else {
+                    addToast(date.getTime(), 'Ese producto ya esta registrado', 'error')
+                }
             } else {
-                addToast(date.getTime(), 'Ese producto ya esta registrado', 'error')
+                updateProduct(id as number, form)
+                addToast(date.getTime(), 'Producto actualizado', 'success')
+                setOpenModal(false)
             }
         } else {
             addToast(date.getTime(), 'Hay campos vacios', 'error')
         }
-
-
-
     }
 
 
@@ -117,15 +123,24 @@ export const ModalProduct = ({ openModal, setOpenModal, mode }: modalProps) => {
                         className="border border-black/50 px-2 py-2 rounded-md outline-0"
                     />
                 </div>
-                <div className="flex flex-col gap-y-2">
-                    <label className="block mb-2 text-md text-black" htmlFor="file_input">Imagen</label>
-                    <input
-                        onChange={(e) => setImage(e.target.files?.[0] ?? null)}
-                        className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer 
+                {mode === 'editar' &&
+                    <div className="flex items-center gap-x-2">
+                        <label>Cambiar imagen</label>
+                        <input type="checkbox"
+                            onChange={(e) => setChangeImg(e.target.checked)}
+                            checked={changeImg}
+                            className="border border-black/50 px-2 py-2 rounded-md outline-0"
+                        />
+                    </div>}
+                {mode !== 'editar' || changeImg &&
+                    <div className="flex flex-col gap-y-2">
+                        <label className="block mb-2 text-md text-black" htmlFor="file_input">Imagen</label>
+                        <input
+                            onChange={(e) => setImage(e.target.files?.[0] ?? null)}
+                            className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer 
                         focus:outline-none py-2 px-4"
-                        id="file_input" type="file"></input>
-                </div>
-
+                            id="file_input" type="file"></input>
+                    </div>}
                 <div className="flex items-center gap-x-2">
                     <label htmlFor="">Activo</label>
                     <input type="checkbox"
