@@ -11,7 +11,7 @@ type modalProps = {
 
 }
 
-export const ModalProduct = ({ openModal, setOpenModal, mode, id}: modalProps) => {
+export const ModalProduct = ({ openModal, setOpenModal, mode, id }: modalProps) => {
     const [name, setName] = useState('')
     const [description, setDescription] = useState('')
     const [category, setCategory] = useState('')
@@ -19,7 +19,7 @@ export const ModalProduct = ({ openModal, setOpenModal, mode, id}: modalProps) =
     const [stock, setStock] = useState('')
     const [image, setImage] = useState<File | null>(null)
     const [active, setActive] = useState(true)
-    const [changeImg, setChangeImg] = useState(false)
+
 
     const ref = useRef<HTMLFormElement | null>(null)
 
@@ -123,24 +123,14 @@ export const ModalProduct = ({ openModal, setOpenModal, mode, id}: modalProps) =
                         className="border border-black/50 px-2 py-2 rounded-md outline-0"
                     />
                 </div>
-                {mode === 'editar' &&
-                    <div className="flex items-center gap-x-2">
-                        <label>Cambiar imagen</label>
-                        <input type="checkbox"
-                            onChange={(e) => setChangeImg(e.target.checked)}
-                            checked={changeImg}
-                            className="border border-black/50 px-2 py-2 rounded-md outline-0"
-                        />
-                    </div>}
-                {mode !== 'editar' || changeImg &&
-                    <div className="flex flex-col gap-y-2">
-                        <label className="block mb-2 text-md text-black" htmlFor="file_input">Imagen</label>
-                        <input
-                            onChange={(e) => setImage(e.target.files?.[0] ?? null)}
-                            className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer 
+                <div className="flex flex-col gap-y-2">
+                    <label className="block mb-2 text-md text-black" htmlFor="file_input">Imagen</label>
+                    <input
+                        onChange={(e) => setImage(e.target.files?.[0] ?? null)}
+                        className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer 
                         focus:outline-none py-2 px-4"
-                            id="file_input" type="file"></input>
-                    </div>}
+                        id="file_input" type="file"></input>
+                </div>
                 <div className="flex items-center gap-x-2">
                     <label htmlFor="">Activo</label>
                     <input type="checkbox"
