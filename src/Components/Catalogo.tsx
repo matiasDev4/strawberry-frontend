@@ -17,7 +17,7 @@ export type productList = {
 export const Catalago = () => {
     const [product, setProduct] = useState<productList[]>([])
     const {getProducts} = useContextProduct()
-    const [categ, setCateg] = useState('')
+    const [categ, setCateg] = useState('todos')
 
     const handlerProducts = async () => {
         const res = await getProducts()
