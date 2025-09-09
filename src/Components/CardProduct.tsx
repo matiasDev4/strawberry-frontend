@@ -18,7 +18,7 @@ export const Card = ({product}:{product: productCardProp}) => {
             <div className='flex flex-col gap-y-1 p-2 items-left'>
                 <h1 className='text-lg font-play'>{product.name.toUpperCase()}</h1>
                 <span className='text-md font-semibold bg-red-400 px-2 py-0.2 rounded-sm
-                text-white inline'>$ {product.price}</span>
+                text-white inline-block'>$ {product.price}</span>
             </div>
             <div className='p-2 leading-relaxed font-play text-sm text-[#424242]'>
                 <p>
