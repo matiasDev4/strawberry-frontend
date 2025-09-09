@@ -12,6 +12,7 @@ export const Products = () => {
     const [mode, setMode] = useState('create')
     const [openModal, setOpenModal] = useState(false)
     const [product, setProduct] = useState<productList[]>([])
+    const [refresh, setRefresh] = useState(false)
     const [id, setId] = useState(0)
     const { getProducts } = useContextProduct()
     const { addToast } = useToast()
@@ -26,14 +27,16 @@ export const Products = () => {
     const handlerDelete = async (id: number) => {
         await deleteProduct(id)
         addToast(id, 'Producto eliminado', 'success')
-
-        handlerProduct()
+        setRefresh(true)
         
     }
 
     useEffect(() => {
         handlerProduct()
-    }, [openModal])
+        if (refresh) {
+            setRefresh(false)
+        }
+    }, [openModal, refresh])
 
     return (
         <section className="h-[calc(100vh - 4rem)] w-full">
