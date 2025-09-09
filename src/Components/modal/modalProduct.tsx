@@ -50,7 +50,7 @@ export const ModalProduct = ({ openModal, setOpenModal, mode, id }: modalProps) 
                     addToast(date.getTime(), 'Ese producto ya esta registrado', 'error')
                 }
             } else {
-                updateProduct(id as number, form)
+                await updateProduct(id as number, form)
                 addToast(date.getTime(), 'Producto actualizado', 'success')
                 setOpenModal(false)
             }
