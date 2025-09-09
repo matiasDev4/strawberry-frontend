@@ -10,6 +10,7 @@ export type productList = {
     description: string,
     price: number,
     image: string
+    category?: string
 }
 
 
@@ -35,6 +36,7 @@ export const Catalago = () => {
                     <h1 className="font-play text-lg">Filtro</h1>
                     <select name="" id="" className="border px-2 py-1 rounded-md border-[#646464]">
                         <option value="todos">Todos</option>
+                        {product.map(item => <option value="todos">{item.category}</option>)}
                     </select>
                 </div>
             </div>
