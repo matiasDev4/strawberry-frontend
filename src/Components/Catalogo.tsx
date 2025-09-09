@@ -46,7 +46,7 @@ export const Catalago = () => {
                 </div>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 place-items-center my-5 gap-5 items-start">
-                {product.filter(item => item.category === categ ? item : product).map((item, index) => 
+                {product.filter(item => categ === "todos" || item.category === categ).map((item, index) => 
                     <Card product={item} key={index}/>
                 )}
             </div>

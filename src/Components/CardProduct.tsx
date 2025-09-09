@@ -25,11 +25,11 @@ export const Card = ({product}:{product: productCardProp}) => {
                     {product.description}
                 </p>
             </div>
-            <div className='py-2'>
+            {/* <div className='py-2'>
                 <button className='bg-green-500 w-full py-2 rounded-md text-white font-play text-sm'>
                     Pedir por whatsapp
                 </button>
-            </div>
+            </div> */}
         </article>
     )
 }
