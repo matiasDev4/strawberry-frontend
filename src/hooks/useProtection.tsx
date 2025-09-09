@@ -31,7 +31,7 @@ export const UseProtection = ({children}:{children: React.ReactNode}) => {
     handlerUserData();
   }, []);
 
-  if (loading) return <div>Cargando...</div>;
+  if (loading) return <div className="flex justify-center items-center w-full h-screen"><h1 className="text-xl font-bold bg-white rounded-lg p-5">Cargando...</h1></div>;
   if (role !== "admin") return <Navigate to="/login" />;
   return <>{children}</>;
 }

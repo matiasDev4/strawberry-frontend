@@ -9,26 +9,29 @@ import { Products } from './routers/Products'
 import { UseProtection } from './hooks/useProtection'
 import { ProviderUser } from './context/usersContext'
 import { ProductProvider } from './context/productContext'
+import { ToastProvider } from './context/toastContext'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <ProductProvider>
-      <BrowserRouter>
-        <Routes>
-          <Route path='/' element={<App />} />
-          <Route path='/login' element={<Login />} />
-          <Route path='/panel' element={
-            <ProviderUser>
-              <UseProtection>
-                <Panel />
-              </UseProtection>
-            </ProviderUser>
-          }>
-            <Route index element={<Navigate to="/panel/productos" replace />} />
-            <Route path='productos' element={<Products />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
-    </ProductProvider>
+    <ToastProvider>
+      <ProductProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route path='/' element={<App />} />
+            <Route path='/login' element={<Login />} />
+            <Route path='/panel' element={
+              <ProviderUser>
+                <UseProtection>
+                  <Panel />
+                </UseProtection>
+              </ProviderUser>
+            }>
+              <Route index element={<Navigate to="/panel/productos" replace />} />
+              <Route path='productos' element={<Products />} />
+            </Route>
+          </Routes>
+        </BrowserRouter>
+      </ProductProvider>
+    </ToastProvider>
   </StrictMode>
 )

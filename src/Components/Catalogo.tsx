@@ -5,6 +5,7 @@ import { useContextProduct } from "../hooks/userContextProduct"
 
 
 export type productList = {
+    id?: number
     name: string,
     description: string,
     price: number,
@@ -28,11 +29,11 @@ export const Catalago = () => {
 
     return (
         <section className="w-full max-w-[1300px] mx-auto min-h-screen scroll-mt-20 scroll-smooth" id="catalogo">
-            <div className="px-2 py-2 flex justify-between">
+            <div className="px-5 py-2 flex justify-between">
                 <h1 className="text-3xl font-soft">Catalogo</h1>  
                 <div className="flex items-center gap-x-4">
-                    <h1 className="font-play">Filtro</h1>
-                    <select name="" id="" className="border px-2 rounded-md border-[#c0c0c0]">
+                    <h1 className="font-play text-lg">Filtro</h1>
+                    <select name="" id="" className="border px-2 py-1 rounded-md border-[#646464]">
                         <option value="todos">Todos</option>
                     </select>
                 </div>

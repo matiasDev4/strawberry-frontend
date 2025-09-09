@@ -6,8 +6,6 @@ type contextProp = {
 
 }
 
-
-
 export const usersContext = createContext<contextProp | undefined>(undefined)
 
 export const ProviderUser = ({children}:{children: React.ReactNode}) => {

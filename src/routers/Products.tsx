@@ -1,39 +1,73 @@
-import { useState } from 'react'
-import logo from '../assets/logo.webp'
+import { useEffect, useState } from 'react'
+
 import { ModalProduct } from '../Components/modal/modalProduct'
+
+import { useContextProduct } from '../hooks/userContextProduct'
+
+import type { productList } from '../Components/Catalogo'
+import { deleteProduct } from '../services/productService'
+import { useToast } from '../context/toastContext'
 
 export const Products = () => {
     const [mode, setMode] = useState('create')
     const [openModal, setOpenModal] = useState(false)
-    
+    const [product, setProduct] = useState<productList[]>([])
+    const { getProducts } = useContextProduct()
+    const { addToast } = useToast()
+
+    const handlerProduct = async () => {
+        const data = await getProducts()
+        if(data){
+            setProduct(data)
+        }
+    }
+
+    const handlerDelete = async (id: number) => {
+        await deleteProduct(id)
+        addToast(id, 'Producto eliminado', 'success')
+
+        handlerProduct()
+        
+    }
+
+    useEffect(() => {
+        handlerProduct()
+    }, [openModal])
+
     return (
         <section className="h-[calc(100vh - 4rem)] w-full">
             <div className='px-4 py-4 flex flex-col gap-y-2'>
                 <h1 className='font-play text-lg'>Gestion de productos</h1>
                 <button className='bg-green-500 w-42 py-1 rounded-md text-white font-play
                 hover:cursor-pointer'
-                onClick={()=>{
-                    setOpenModal(true)
-                }}
+                    onClick={() => {
+                        setOpenModal(true)
+                    }}
                 >Crear producto</button>
             </div>
             <div className="flex flex-col gap-y-5 p-2">
-                <article className='w-full bg-white flex items-center gap-x-5 px-2 rounded-lg'>
-                    <img src={logo} alt=""
+                {product.map(item => <article
+                key={item.id} className='w-full bg-white flex items-center gap-x-5 px-2 rounded-lg'>
+                    <img src={item.image} alt={item.name}
                         className="w-15 h-15 rounded-lg" />
                     <div className='py-2'>
-                        <h1 className='text-lg font-play'>Conjunto</h1>
-                        <span className='text-sm font-play text-black/60'>$ 9000</span>
+                        <h1 className='text-lg font-play'>{item.name}</h1>
+                        <span className='text-sm font-play text-black/60'>$ {item.price}</span>
                         <div className='flex gap-x-5 pt-1.5'>
-                            <button className='bg-sky-500 text-sky-100 rounded-sm font-semibold px-2'
-                            onClick={()=>setMode('editar')}
+                            <button className='bg-sky-500 text-white hover:cursor-pointer rounded-sm font-semibold px-2'
+                                onClick={() => {
+                                    setMode('editar')
+                                    setOpenModal(true)
+                                }}
                             >Editar</button>
-                            <button className='px-2 text-red-600 rounded-sm'>Eliminar</button>
+                            <button className='px-2 text-red-600 rounded-sm hover:cursor-pointer'
+                                onClick={() => handlerDelete(item.id as number)}
+                            >Eliminar</button>
                         </div>
                     </div>
-                </article>
+                </article>)}
             </div>
-            {openModal && <ModalProduct openModal={openModal} setOpenModal={setOpenModal} mode={mode}/>}
+            {openModal && <ModalProduct openModal={openModal} setOpenModal={setOpenModal} mode={mode} />}
         </section>
     )
 }

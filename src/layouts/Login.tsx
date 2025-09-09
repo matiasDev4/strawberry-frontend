@@ -1,12 +1,15 @@
 import { useState } from "react"
 import { userLogin } from "../services/authService"
 import { useNavigate } from "react-router-dom"
+import { useToast } from "../context/toastContext"
 
 export const Login = () => {
 
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
+    const { addToast } = useToast()
     const navigation = useNavigate()
+    const date = new Date()
     const handlerLogin = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         if (username.trim() !== '' && password.trim() !== ''){
@@ -15,7 +18,10 @@ export const Login = () => {
             if (sessionData) {
                 navigation('/panel')
             }
+        }else{
+            addToast(date.getTime(), 'Campos vacios', 'alert')
         }
+
     }
 
     return (

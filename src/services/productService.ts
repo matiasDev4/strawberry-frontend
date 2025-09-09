@@ -1,21 +1,23 @@
 
 export const insertProduct = async (data: FormData) => {
-
     const response = await fetch('https://strawberry-api.onrender.com/products/create', {
         method: 'POST',
         body: data
     })
-
-    if (!response.ok) throw new Error('Error al crear el producto')
-    
-    return await response.json()
+    return response
 }
 
 export const getAllProducts = async () => {
     const response = await fetch('https://strawberry-api.onrender.com/products', {
         method: 'GET',
     })
+    if (!response.ok) throw new Error('No hay productos')
+    return await response.json()
+}
 
-    if (!response.ok) throw new Error('No se encontraron productos')
+export const deleteProduct = async (id: number) => {
+    const response = await fetch(`https://strawberry-api.onrender.com/products/delete/${id}`, {
+        method: 'DELETE',
+    })
     return await response.json()
 }

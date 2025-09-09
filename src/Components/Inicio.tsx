@@ -5,7 +5,7 @@ export const Inicio = () => {
         <section 
         id='inicio'
         className='flex flex-col-reverse w-auto items-center lg:items-center lg:flex-row lg:justify-around my-8 lg:max-w-[1000px] lg:mx-auto scroll-mt-20'>
-            <div className='w-auto h-80 flex flex-col gap-y-5 justify-start p-3 my-5 lg:w-110'>
+            <div className='w-auto h-80 flex flex-col gap-y-5 justify-center p-3 my-5 lg:w-110'>
                 <h1 className='font-bold text-xl lg:text-3xl font-soft'>Bienvenida a <span className='
                 text-red-500 font-prise'>Strawberry!</span> 🍓</h1>
                 <p className='text-[#4d4d4d] font-normal font-play leading-relaxed text-md lg:text-lg'>

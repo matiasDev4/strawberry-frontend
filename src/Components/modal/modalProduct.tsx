@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react"
 import { insertProduct } from "../../services/productService"
+import { useToast } from "../../context/toastContext"
 
 
 type modalProps = {
@@ -9,7 +10,7 @@ type modalProps = {
 
 }
 
-export const ModalProduct = ({openModal, setOpenModal, mode}: modalProps) => {
+export const ModalProduct = ({ openModal, setOpenModal, mode }: modalProps) => {
     const [name, setName] = useState('')
     const [description, setDescription] = useState('')
     const [category, setCategory] = useState('')
@@ -20,25 +21,42 @@ export const ModalProduct = ({openModal, setOpenModal, mode}: modalProps) => {
 
     const ref = useRef<HTMLFormElement | null>(null)
 
-
+    const { addToast } = useToast()
+    const date = new Date()
+    const form = new FormData()
     const handlerSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        if (!image) return ''
-        const form = new FormData()
-        form.append('name', name)
-        form.append('description', description)
-        form.append('category', category)
-        form.append('image', image)
-        form.append('stock', stock)
-        form.append('price', price)
-        form.append('active', active ? 'true' : 'false')
-        await insertProduct(form)
+        if (!image) return addToast(date.getTime(), 'Falta una imagen', 'alert')
+        if (name.trim() !== '' && description.trim() !== '' && category !== '' && price.trim() !== '' && stock !== '') {
+            form.append('name', name)
+            form.append('description', description)
+            form.append('category', category)
+            form.append('image', image)
+            form.append('stock', stock)
+            form.append('price', price)
+            form.append('active', active ? 'true' : 'false')
+            const res = await insertProduct(form)
+            const message = await res.json()
+            console.log(res)
+
+            if (res.status === 201) {
+                addToast(date.getTime(), message['success'], 'success')
+                setOpenModal(false)
+            } else {
+                addToast(date.getTime(), 'Ese producto ya esta registrado', 'error')
+            }
+        } else {
+            addToast(date.getTime(), 'Hay campos vacios', 'error')
+        }
+
+
+
     }
 
 
-    useEffect(()=>{
+    useEffect(() => {
         const closeModal = (e: MouseEvent) => {
-            if(ref.current && !ref.current.contains(e.target as Node)){
+            if (ref.current && !ref.current.contains(e.target as Node)) {
                 setOpenModal(false)
             }
         }
@@ -47,14 +65,14 @@ export const ModalProduct = ({openModal, setOpenModal, mode}: modalProps) => {
             document.addEventListener('mousedown', closeModal)
         }
         return () => document.removeEventListener('mousedown', closeModal)
-    },[openModal])
+    }, [openModal])
 
     return (
         <section className="bg-black/50 fixed top-0 bottom-0 left-0 right-0 z-20 backdrop-blur-sm
         flex justify-center items-center">
-            <form ref={ref} 
-            onSubmit={(e)=>handlerSubmit(e)}
-            className="w-full h-[450px] bg-white px-4 py-4 overflow-auto flex flex-col gap-y-4 md:w-[500px] rounded-xl
+            <form ref={ref}
+                onSubmit={(e) => handlerSubmit(e)}
+                className="w-full h-[450px] bg-white px-4 py-4 overflow-auto flex flex-col gap-y-4 md:w-[500px] rounded-xl
             shadow-[0px_0px_10px_black]/50">
                 <h1 className="font-play text-xl mt-5 text-center">{mode === 'create' ? 'Crear producto' : 'Editar producto'}</h1>
                 <div className="flex flex-col gap-y-2">
@@ -116,9 +134,9 @@ export const ModalProduct = ({openModal, setOpenModal, mode}: modalProps) => {
                         className="border border-black/50 px-2 py-2 rounded-md outline-0"
                     />
                 </div>
-                <button 
-                type="submit"
-                className="
+                <button
+                    type="submit"
+                    className="
                 bg-green-500 py-2 rounded-md font-play text-white
                 ">Guardar</button>
             </form>
