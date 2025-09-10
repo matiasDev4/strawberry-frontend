@@ -1,4 +1,5 @@
 import logo from '../assets/logo.webp'
+import { FaWhatsapp } from "react-icons/fa";
 
 export const Inicio = () => {
     return (
@@ -13,9 +14,10 @@ export const Inicio = () => {
                     te dejamos nuestro catálogo para que veas todo lo que tenemos disponible
                 </p>
                 <h2 className='font-play'>Podes unirte a nuestro grupo!</h2>
-                <a href='https://chat.whatsapp.com/Gx41AUfuOSv0Nu7EuT6eUj?mode=ems_copy_t' className='bg-green-500 py-2 w-full my-1 rounded-md font-normal text-white font-play
-                hover:cursor-pointer hover:bg-green-600 transition-colors duration-200 text-center'>
-                    Grupo de Whatsapp
+                <a href='https://chat.whatsapp.com/Gx41AUfuOSv0Nu7EuT6eUj?mode=ems_copy_t' className='bg-[#fa54ba] py-2 w-full my-1 rounded-md font-normal text-white font-play
+                hover:cursor-pointer hover:bg-green-600 transition-colors duration-200 text-center flex items-center justify-center'>
+                    <span className='px-2 text-xl'><FaWhatsapp /></span>
+                    Grupo de whatsapp
                 </a> 
             </div>
             <div className='p-2 border-3 rounded-lg border-[#ffb6b6] w-60 h-60 lg:w-80 lg:h-80'>

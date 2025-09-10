@@ -5,7 +5,7 @@ import { useContextProduct } from "../hooks/userContextProduct"
 
 
 export type productList = {
-    id?: number
+    id: number
     name: string,
     description: string,
     price: number,
@@ -16,6 +16,9 @@ export type productList = {
 
 export const Catalago = () => {
     const [product, setProduct] = useState<productList[]>([])
+    
+
+
     const {getProducts} = useContextProduct()
     const [categ, setCateg] = useState('todos')
 
@@ -34,7 +37,6 @@ export const Catalago = () => {
             <div className="px-5 py-2 flex justify-between">
                 <h1 className="text-3xl font-soft">Catalogo</h1>  
                 <div className="flex items-center gap-x-4">
-                    <h1 className="font-play text-lg">Filtro</h1>
                     <select 
                     onChange={(e)=>{setCateg(e.target.value)}}
                     name="" id="" className="border px-2 py-1 rounded-md border-[#646464]">
@@ -47,7 +49,7 @@ export const Catalago = () => {
             </div>
             <div className="grid grid-cols-[repeat(auto-fit,minmax(320px,1fr))] place-items-center gap-8 items-stretch my-5">
                 {product.filter(item => categ === "todos" || item.category === categ).map((item, index) => 
-                    <Card product={item} key={index}/>
+                    <Card product={item} key={index} />
                 )}
             </div>
         </section>

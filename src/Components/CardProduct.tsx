@@ -1,5 +1,9 @@
+import { useEffect, useState } from "react"
+import { ViewImage } from "./viewImage"
+import { useContextProduct } from "../hooks/userContextProduct"
 
 type productCardProp = {
+    id: number
     name: string
     description: string
     price: number
@@ -8,32 +12,54 @@ type productCardProp = {
 }
 
 export const Card = ({ product }: { product: productCardProp }) => {
+    const [viewImage, setViewImage] = useState(false)
+    const {getProducID} = useContextProduct()
+
+    const handlerViewImage = (id: number) => {
+        getProducID(id)
+        setViewImage(true)
+    }
+
+    useEffect(()=>{
+        if (viewImage){
+            document.body.style.overflow = 'hidden'
+        }else{
+            document.body.style.overflow = ''
+        }
+    },[viewImage])
+
     return (
-        <article className=" w-[320px] h-auto py-2 px-2 rounded-xl
+        <>
+            <article className=" w-[320px] h-auto py-2 px-2 rounded-xl
          shadow-[0px_0px_12px_black]/15 border border-[#e2e2e2] bg-white">
-            <div className='p-2 border rounded-lg border-[#d1d1d1] my-2 active:scale-125 active:backdrop-blur-md active:p-5 transition-transform duration-300'>
-                <img src={product.image}
-                    className='w-full h-70 object-cover rounded-lg '
-                />
-            </div>
-            <div className='flex flex-col gap-y-1 p-2 items-left flex-1'>
-                <h1 className='text-lg font-play'>{product.name.toUpperCase()}</h1>
-                <div className="flex justify-between items-center">
-                    <span className="text-sm text-black/50 py-1">{product.category}</span>
-                    <span className='text-sm font-semibold bg-red-400 px-1 py-0.2 rounded-sm
-                text-white w-16'>$ {product.price.toLocaleString("es-AR")}</span>
+                <div className='p-2 border rounded-lg border-[#d1d1d1] my-2 hover:scale-125 focus:backdrop-blur-md focus:p-5 transition-transform duration-300'>
+                    <img src={product.image}
+                    onClick={()=>{handlerViewImage(product.id)}}
+                        className='w-full h-70 object-cover rounded-lg'
+                    />
                 </div>
-            </div>
-            <div className='p-2 leading-relaxed font-play text-sm text-[#424242] mt-auto'>
-                <p>
-                    {product.description}
-                </p>
-            </div>
-            {/* <div className='py-2'>
+                <div className='flex flex-col gap-y-1 p-2 items-left flex-1'>
+                    <h1 className='text-md md:text-lg font-play'>{product.name.toUpperCase()}</h1>
+                    <div className="flex justify-between items-center">
+                        <span className="text-sm text-black/50 py-1">{product.category}</span>
+                        <span className='text-sm font-semibold bg-red-400 px-1 py-0.2 rounded-sm
+                text-white w-16'>$ {product.price.toLocaleString("es-AR")}</span>
+                    </div>
+                </div>
+                <div className='p-2 leading-relaxed font-play text-sm text-[#424242] mt-auto'>
+                    <p>
+                        {product.description}
+                    </p>
+                </div>
+                {/* <div className='py-2'>
                 <button className='bg-green-500 w-full py-2 rounded-md text-white font-play text-sm'>
                     Pedir por whatsapp
                 </button>
             </div> */}
-        </article>
+            
+            </article>
+            {viewImage === true ? <ViewImage close={setViewImage}/> : ''}
+        </>
+
     )
 }
