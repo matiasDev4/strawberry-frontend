@@ -11,9 +11,9 @@ export const Card = ({ product }: { product: productCardProp }) => {
     return (
         <article className=" w-[320px] h-auto py-2 px-2 rounded-xl
          shadow-[0px_0px_12px_black]/15 border border-[#e2e2e2] bg-white">
-            <div className='p-2 border rounded-lg border-[#d1d1d1] my-2'>
+            <div className='p-2 border rounded-lg border-[#d1d1d1] my-2 active:scale-125 active:backdrop-blur-md active:p-5 transition-transform duration-300'>
                 <img src={product.image}
-                    className='w-full h-70 object-cover rounded-lg'
+                    className='w-full h-70 object-cover rounded-lg '
                 />
             </div>
             <div className='flex flex-col gap-y-1 p-2 items-left flex-1'>

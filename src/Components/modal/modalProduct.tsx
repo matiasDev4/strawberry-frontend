@@ -99,7 +99,7 @@ export const ModalProduct = ({ openModal, setOpenModal, mode, id }: modalProps) 
         flex justify-center items-center">
             <form ref={ref}
                 onSubmit={(e) => handlerSubmit(e)}
-                className="w-full h-[450px] bg-white px-4 py-4 overflow-auto flex flex-col gap-y-4 md:w-[500px] rounded-xl
+                className="w-full h-[500px] bg-white px-4 py-4 overflow-auto flex flex-col gap-y-4 md:w-[500px] rounded-xl
             shadow-[0px_0px_10px_black]/50">
                 <h1 className="font-play text-xl mt-5 text-center">{mode === 'create' ? 'Crear producto' : 'Editar producto'}</h1>
                 <div className="flex flex-col gap-y-2">
