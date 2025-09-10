@@ -5,7 +5,7 @@ import type { productList } from "../Components/Catalogo";
 
 type contextProps = {
     getProducts: () => Promise<productList[]>
-    getProducID: (id: number) => Promise<void>
+    getProducID: (id: number | null) => Promise<void>
     product: productList | undefined
 }
 
@@ -20,7 +20,7 @@ export const ProductProvider = ({ children }: { children: React.ReactNode }) => 
         return response
     }
 
-    const getProducID = async (id: number) => {
+    const getProducID = async (id: number | null) => {
         const response = await getProduct(id)
         if (response.id !== id){
             setProduct(undefined)

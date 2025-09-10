@@ -16,7 +16,7 @@ export const getAllProducts = async () => {
     return await response.json()
 }
 
-export const getProduct = async (id: number) => {
+export const getProduct = async (id: number | null) => {
     const response = await fetch(`${API_URL}/products/${id}`, {
         method: 'GET',
     })
