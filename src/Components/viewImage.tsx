@@ -14,7 +14,7 @@ export const ViewImage = ({ close }: { close: React.Dispatch<React.SetStateActio
         animate-fadeIn">
             <div className="px-4">
                 <img src={product?.image} alt={product?.name}
-                    className="w-full h-full rounded-xl" />
+                    className="w-80 h-80 rounded-xl object-cover" />
             </div>
             <button
                 onClick={() => { close(false) }}
