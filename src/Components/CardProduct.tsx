@@ -26,6 +26,7 @@ export const Card = ({ product }: { product: productCardProp }) => {
             document.body.style.overflow = 'hidden'
         }else{
             document.body.style.overflow = ''
+            
         }
     },[viewImage])
 
@@ -44,7 +45,7 @@ export const Card = ({ product }: { product: productCardProp }) => {
                     <div className="flex justify-between items-center">
                         <span className="text-sm text-black/50 py-1">{product.category}</span>
                         <span className='text-sm text-center font-semibold bg-[#fa54ba] px-1 py-0.2 rounded-sm
-                text-white w-16'>$ {product.price.toLocaleString("es-AR")}</span>
+                text-white w-18'>$ {product.price.toLocaleString("es-AR")}</span>
                     </div>
                 </div>
                 <div className='p-2 leading-relaxed font-play text-sm text-[#424242] mt-auto'>
