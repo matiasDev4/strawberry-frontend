@@ -21,7 +21,6 @@ export const UseProtection = ({children}:{children: React.ReactNode}) => {
         const userData = await getUserData(token);
         setRole(userData.role);
       } catch (error) {
-        console.error("Error obteniendo datos del usuario:", error);
         setRole(null);
       } finally {
         setLoading(false);

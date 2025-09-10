@@ -10,7 +10,7 @@ export type productList = {
     description: string,
     price: number,
     image: string
-    category?: string
+    category: string
 }
 
 
@@ -41,11 +41,11 @@ export const Catalago = () => {
                         <option value="todos">Todos</option>
                         {product.map(item => <option 
                         
-                        value={item.category}>{item.category}</option>)}
+                        value={item.category} key={item.id}>{item.category}</option>)}
                     </select>
                 </div>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 place-items-center my-5 gap-5 items-start">
+            <div className="grid grid-cols-[repeat(auto-fit,minmax(320px,1fr))] place-items-center gap-8 items-stretch my-5">
                 {product.filter(item => categ === "todos" || item.category === categ).map((item, index) => 
                     <Card product={item} key={index}/>
                 )}

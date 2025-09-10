@@ -43,8 +43,9 @@ export const Products = () => {
             <div className='px-4 py-4 flex flex-col gap-y-2'>
                 <h1 className='font-play text-lg'>Gestion de productos</h1>
                 <button className='bg-green-500 w-42 py-1 rounded-md text-white font-play
-                hover:cursor-pointer'
+                hover:cursor-pointer active:bg-green-600'
                     onClick={() => {
+                        setMode('create')
                         setOpenModal(true)
                     }}
                 >Crear producto</button>

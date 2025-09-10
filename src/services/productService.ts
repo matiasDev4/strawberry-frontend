@@ -1,6 +1,7 @@
+import { API_URL } from "./authService"
 
 export const insertProduct = async (data: FormData) => {
-    const response = await fetch('https://strawberry.discloud.app/products/create', {
+    const response = await fetch(`${API_URL}/products/create`, {
         method: 'POST',
         body: data
     })
@@ -8,7 +9,15 @@ export const insertProduct = async (data: FormData) => {
 }
 
 export const getAllProducts = async () => {
-    const response = await fetch('https://strawberry.discloud.app/products', {
+    const response = await fetch(`${API_URL}/products`, {
+        method: 'GET',
+    })
+    if (!response.ok) throw new Error('No hay productos')
+    return await response.json()
+}
+
+export const getProduct = async (id: number) => {
+    const response = await fetch(`${API_URL}/products/${id}`, {
         method: 'GET',
     })
     if (!response.ok) throw new Error('No hay productos')
@@ -16,7 +25,7 @@ export const getAllProducts = async () => {
 }
 
 export const deleteProduct = async (id: number) => {
-    const response = await fetch(`https://strawberry.discloud.app/products/delete/${id}`, {
+    const response = await fetch(`${API_URL}/products/delete/${id}`, {
         method: 'DELETE',
     })
     return await response.json()
@@ -24,7 +33,7 @@ export const deleteProduct = async (id: number) => {
 }
 
 export const updateProduct = async (id:number, data: FormData) => {
-    const response = await fetch(`https://strawberry.discloud.app/products/update/${id}`, {
+    const response = await fetch(`${API_URL}/products/update/${id}`, {
         method: 'PUT',
         body: data
     })

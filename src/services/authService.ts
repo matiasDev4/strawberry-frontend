@@ -1,9 +1,11 @@
+export const API_URL = import.meta.env.VITE_API_URL
+
 export const userLogin = async (username: string, password: string) => {
     const form = new FormData()
     form.append('username', username)
     form.append('password', password)
 
-    const response = await fetch('https://strawberry.discloud.app/login', {
+    const response = await fetch(`${API_URL}/login`, {
         method: 'POST',
         body: form
     })
@@ -13,7 +15,7 @@ export const userLogin = async (username: string, password: string) => {
 
 export const getUserData = async (token: string) => {
 
-    const response = await fetch('https://strawberry.discloud.app/user/me', {
+    const response = await fetch(`${API_URL}/user/me`, {
         method: 'GET',
         headers: {
             'Authorization': `Bearer ${token}`

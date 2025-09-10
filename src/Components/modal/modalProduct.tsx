@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react"
-import { insertProduct, updateProduct } from "../../services/productService"
+import { getProduct, insertProduct, updateProduct } from "../../services/productService"
 import { useToast } from "../../context/toastContext"
 
 
@@ -16,7 +16,7 @@ export const ModalProduct = ({ openModal, setOpenModal, mode, id }: modalProps) 
     const [description, setDescription] = useState('')
     const [category, setCategory] = useState('')
     const [price, setPrice] = useState('')
-    const [stock, setStock] = useState('')
+    const [stock, setStock] = useState('0')
     const [image, setImage] = useState<File | null>(null)
     const [active, setActive] = useState(true)
 
@@ -32,9 +32,9 @@ export const ModalProduct = ({ openModal, setOpenModal, mode, id }: modalProps) 
         if (image) {
             form.append('image', image)
         }
-        if (name.trim() !== '' && description.trim() !== '' && category !== '' && price.trim() !== '' && stock !== '') {
+        if (name.trim() !== '' && category !== '' && price.trim() !== '') {
             form.append('name', name)
-            form.append('description', description)
+            form.append('description', description === '' ? 'Sin descripcion' : description)
             form.append('category', category)
             form.append('stock', stock)
             form.append('price', price)
@@ -59,11 +59,32 @@ export const ModalProduct = ({ openModal, setOpenModal, mode, id }: modalProps) 
         }
     }
 
+    useEffect(()=>{
+        const handlerGetProduct = async () => {
+            const data = await getProduct(id as number)
+
+            if (mode === 'editar') {
+                setName(data['name'])
+                setDescription(data['description'])
+                setCategory(data['category'])
+                setPrice(data['price'])
+                setStock(data['stock'])
+                setActive(data['active'])
+            }
+        }
+        handlerGetProduct()
+    }, [])
 
     useEffect(() => {
+
         const closeModal = (e: MouseEvent) => {
             if (ref.current && !ref.current.contains(e.target as Node)) {
                 setOpenModal(false)
+                setName('')
+                setDescription('')
+                setCategory('')
+                setPrice('')
+                setStock('')
             }
         }
 
@@ -94,7 +115,7 @@ export const ModalProduct = ({ openModal, setOpenModal, mode, id }: modalProps) 
                     <textarea name="" id=""
                         onChange={(e) => setDescription(e.target.value)}
                         value={description}
-                        className="border border-black/50 px-2 py-2 rounded-md outline-0"
+                        className="border border-black/50 px-2 py-2 rounded-md outline-0 resize-none h-32"
                     ></textarea>
                 </div>
                 <div className="flex flex-col gap-y-2">
