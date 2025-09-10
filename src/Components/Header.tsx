@@ -6,7 +6,7 @@ import { useState } from 'react';
 export const Header = () => {
     const [open, setOpen] = useState(false)
     return (
-        <header className="bg-[#ffd1d3] w-full h-18 flex px-5 items-center justify-between sticky top-0">
+        <header className="bg-[#ffd1d3] w-full h-18 flex px-5 items-center justify-between sticky top-0 shadow-[0px_0px_10px_black]/20">
             <div className='flex items-center gap-x-2'>
                 <img src={logo} alt="strawberry" 
                 className='w-18 h-18'
