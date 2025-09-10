@@ -15,8 +15,8 @@ export const Inicio = () => {
                 </p>
                 <h2 className='font-play'>Podes unirte a nuestro grupo!</h2>
                 <a href='https://chat.whatsapp.com/Gx41AUfuOSv0Nu7EuT6eUj?mode=ems_copy_t' className='bg-[#fa54ba] py-2 w-full my-1 rounded-md font-normal text-white font-play
-                hover:cursor-pointer hover:bg-green-600 transition-colors duration-200 text-center flex items-center justify-center'>
-                    <span className='px-2 text-xl'><FaWhatsapp /></span>
+                hover:cursor-pointer hover:bg-[#b63c87] transition-colors duration-200 text-center flex items-center justify-center'>
+                    <span className='px-2 text-xl py-1'><FaWhatsapp /></span>
                     Grupo de whatsapp
                 </a> 
             </div>

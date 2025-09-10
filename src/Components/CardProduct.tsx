@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { ViewImage } from "./viewImage"
 import { useContextProduct } from "../hooks/userContextProduct"
+import { AnimatePresence } from "framer-motion"
 
 type productCardProp = {
     id: number
@@ -32,7 +33,7 @@ export const Card = ({ product }: { product: productCardProp }) => {
         <>
             <article className=" w-[320px] h-auto py-2 px-2 rounded-xl
          shadow-[0px_0px_12px_black]/15 border border-[#e2e2e2] bg-white">
-                <div className='p-2 border rounded-lg border-[#d1d1d1] my-2 hover:scale-125 focus:backdrop-blur-md focus:p-5 transition-transform duration-300'>
+                <div className='p-2 border rounded-lg border-[#d1d1d1] my-2'>
                     <img src={product.image}
                     onClick={()=>{handlerViewImage(product.id)}}
                         className='w-full h-70 object-cover rounded-lg'
@@ -58,7 +59,9 @@ export const Card = ({ product }: { product: productCardProp }) => {
             </div> */}
             
             </article>
-            {viewImage === true ? <ViewImage close={setViewImage}/> : ''}
+            <AnimatePresence>
+                {viewImage === true ? <ViewImage close={setViewImage}/> : ''}
+            </AnimatePresence>
         </>
 
     )
