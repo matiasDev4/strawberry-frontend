@@ -42,7 +42,7 @@ export const Card = ({ product }: { product: productCardProp }) => {
                     <h1 className='text-md md:text-lg font-play'>{product.name.toUpperCase()}</h1>
                     <div className="flex justify-between items-center">
                         <span className="text-sm text-black/50 py-1">{product.category}</span>
-                        <span className='text-sm font-semibold bg-red-400 px-1 py-0.2 rounded-sm
+                        <span className='text-sm text-center font-semibold bg-[#fa54ba] px-1 py-0.2 rounded-sm
                 text-white w-16'>$ {product.price.toLocaleString("es-AR")}</span>
                     </div>
                 </div>
