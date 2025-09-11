@@ -3,6 +3,7 @@ import { MdError } from "react-icons/md";
 import { GrInfo } from "react-icons/gr";
 import { FaCheckCircle } from "react-icons/fa";
 import { PiWarningFill } from "react-icons/pi";
+import { AnimatePresence, motion } from "framer-motion";
 
 
 export const ToastMessage = ({ message, type }: { message: string, type: toastProps['type'] }) => {
@@ -22,10 +23,18 @@ export const ToastMessage = ({ message, type }: { message: string, type: toastPr
     }
 
     return (
-        <div className={`w-auto px-3 py-2 rounded-r-lg border-l-5 bg-white
+        <AnimatePresence>
+            <motion.div
+                initial={{ opacity: 0, y: 50 }}    
+                animate={{ opacity: 1, y: 0 }}      
+                exit={{ opacity: 0, y: 50 }}        
+                transition={{ duration: 0.3 }}
+                className={`w-auto px-3 py-2 rounded-r-lg border-l-5 bg-white
         flex gap-x-3 items-center ${colors[type]}`}>
-            <h1 className="text-xl">{icons[type]}</h1>
-            <h1 className="text-md font-semibold">{message}</h1>
-        </div>
+                <h1 className="text-xl">{icons[type]}</h1>
+                <h1 className="text-md font-semibold">{message}</h1>
+            </motion.div>
+        </AnimatePresence>
+
     )
 }

@@ -21,7 +21,9 @@ export const ProductProvider = ({ children }: { children: React.ReactNode }) => 
     }
 
     const getProducID = async (id: number | null) => {
+        //limpio el estado
         setProduct(undefined)
+        //obtengo y asigno el resultado al estado
         const response = await getProduct(id)
         setProduct(response)
     }
