@@ -1,5 +1,17 @@
 import { API_URL } from "./authService"
 
+export const categorys = [{
+    'name':'Remeras'
+},{
+    'name':'Pantalones'
+},{
+    'name':'Conjuntos'
+},{
+    'name':'Vestidos'
+},{
+    'name':'Tops'
+}]
+
 export const insertProduct = async (data: FormData) => {
     const response = await fetch(`${API_URL}/products/create`, {
         method: 'POST',

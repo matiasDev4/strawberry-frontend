@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react"
 import { Card } from "./CardProduct"
 import { useContextProduct } from "../hooks/userContextProduct"
+import { categorys } from "../services/productService"
 
 
 export type productList = {
@@ -41,14 +42,14 @@ export const Catalago = () => {
                     onChange={(e)=>{setCateg(e.target.value)}}
                     name="" id="" className="border px-2 py-1 rounded-md border-[#646464]">
                         <option value="todos">Todos</option>
-                        {product.map(item => <option 
-                        
-                        value={item.category} key={item.id}>{item.category}</option>)}
+                        {categorys.map(item=>
+                            <option value={item.name} key={item.name}>{item.name}</option>
+                        )}
                     </select>
                 </div>
             </div>
             <div className="grid grid-cols-[repeat(auto-fit,minmax(320px,1fr))] place-items-center gap-8 items-stretch my-5">
-                {product.filter(item => categ === "todos" || item.category === categ).map((item, index) => 
+                {product.filter(item => categ === "todos" || item.category.toLowerCase() === categ.toLowerCase()).map((item, index) => 
                     <Card product={item} key={index} />
                 )}
             </div>

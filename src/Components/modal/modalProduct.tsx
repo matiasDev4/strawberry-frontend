@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react"
-import { getProduct, insertProduct, updateProduct } from "../../services/productService"
+import { categorys, getProduct, insertProduct, updateProduct } from "../../services/productService"
 import { useToast } from "../../context/toastContext"
 
 
@@ -32,7 +32,7 @@ export const ModalProduct = ({ openModal, setOpenModal, mode, id }: modalProps) 
         if (image) {
             form.append('image', image)
         }
-        if (name.trim() !== '' && category !== '' && price.trim() !== '') {
+        if (name.trim() !== '' && category !== '' && price !== '') {
             form.append('name', name)
             form.append('description', description === '' ? 'Sin descripcion' : description)
             form.append('category', category)
@@ -120,11 +120,15 @@ export const ModalProduct = ({ openModal, setOpenModal, mode, id }: modalProps) 
                 </div>
                 <div className="flex flex-col gap-y-2">
                     <label htmlFor="">Categoria</label>
-                    <input type="text"
-                        onChange={(e) => setCategory(e.target.value)}
-                        value={category}
-                        className="border border-black/50 px-2 py-2 rounded-md outline-0"
-                    />
+                    <select name="" id=""
+                    className="border border-black/50 px-2 py-2 rounded-md outline-0"
+                    onChange={(e) => setCategory(e.target.value)}
+                    value={category}
+                    >
+                        {categorys.map(item=>
+                            <option value={item.name} key={item.name}>{item.name}</option>
+                        )}
+                    </select>
                 </div>
                 <div className="flex flex-col gap-y-2">
                     <label htmlFor="">Precio</label>
